@@ -3,7 +3,7 @@
 # pylint: disable=W0102,E0712,C0103,R0903,C0301
 """ SIMPLE API GATEWAY """
 
-__updated__ = "2024-10-06 03:09:44"
+__updated__ = "2024-10-06 22:35:37"
 
 
 from os import environ
@@ -13,7 +13,9 @@ load_dotenv(find_dotenv())
 
 
 class Config:
-    """Set Flask configuration vars from .env file or environment variables"""
+    """
+    Set Flask configuration vars from .env file or environment variables.
+    """
 
     # General
     FLASK_APP = environ.get("FLASK_APP", "app.py")
@@ -25,7 +27,6 @@ class Config:
 
     # APIs
     SECRET_KEY = environ.get("SECRET_KEY", "you-will-never-guess-me")
-    X_API_KEY = environ.get("X_API_KEY", "you-will-never-guess-me")
 
     # OAuth2
     OAUTH2_PROVIDER_URL = environ.get("OAUTH2_PROVIDER_URL", "https://idp.example.com")

@@ -3,7 +3,7 @@
 # pylint: disable=W0102,E0712,C0103,R0903,C0301,R1710
 """ SIMPLE API GATEWAY """
 
-__updated__ = "2024-10-06 03:57:44"
+__updated__ = "2024-10-06 22:37:21"
 
 import logging
 from functools import lru_cache
@@ -18,7 +18,9 @@ logger = logging.getLogger(__name__)
 
 @lru_cache(maxsize=1)
 def get_jwks():
-    """Fetch JWKS from the OAuth2 provider."""
+    """
+    Fetch JWKS from the OAuth2 provider.
+    """
     try:
         response = requests.get(Config.OAUTH2_JWKS_URL, timeout=10)
         response.raise_for_status()
@@ -29,7 +31,9 @@ def get_jwks():
 
 
 def oauth2_scheme():
-    """OAuth2 token validation middleware."""
+    """
+    OAuth2 token validation middleware.
+    """
     auth_header = request.headers.get("Authorization", None)
     if not auth_header or not auth_header.startswith("Bearer "):
         logger.error("Missing or invalid Authorization header.")

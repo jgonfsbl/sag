@@ -3,7 +3,7 @@
 # pylint: disable=W0102,E0712,C0103,R0903,C0301
 """ SIMPLE API GATEWAY """
 
-__updated__ = "2024-10-06 03:13:53"
+__updated__ = "2024-10-06 22:38:59"
 
 
 from flask_limiter import Limiter
@@ -19,7 +19,7 @@ def rate_limit(requests_per_minute: int = 0):
     """
     Convert integer rate limit to the 'requests per minute' format.
     """
-    if requests_per_minute is None:
+    if requests_per_minute == 0:
         # Use the default from config if not provided
         requests_per_minute = Config.DEFAULT_RATE_LIMIT
 
