@@ -1,0 +1,44 @@
+#
+# Dockerfile for an Alpine based Python container
+#
+# Originally developer in 2020 by Jonathan Gonzalez <jgonf@safebytelabs.com>
+# Licensed under the Mozilla Public License 2.0
+#
+
+FROM python:3.12.2-alpine3.19
+LABEL maintainer="Jonathan Gonzalez <jgonf@safebytelabs.com>"
+ARG GIT_BRANCH
+
+ENV RUN_DEPENDENCIES="python3 py3-pip"
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONFAULTHANDLER=1
+
+# Let service stop gracefully
+STOPSIGNAL SIGQUIT
+
+RUN apk add --no-cache $RUN_DEPENDENCIES \
+    && rm -rf /root/.cache               \
+    && rm -rf /var/cache/apk/*           \
+    && find /                            \
+    \( -type d -a -name test -o -name tests \) \
+    -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
+    -exec rm -rf '{}' + \
+    && ls -tr /opt
+
+# Set the working directory
+WORKDIR /opt/app
+
+# Copy requirements and settings files into /opt/app
+COPY ./requirements.txt .
+
+# Copy project files into /opt/app
+COPY ./src/mypkg/ .
+
+# Install project requirements
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Set the port environment variable, default to 8000 if not set
+ENV GUNIPORT=8000
+
+# Run the program using Gunicorn
+CMD ["sh", "-c", "gunicorn -b 0.0.0.0:$GUNIPORT app:app --access-logfile=-"]

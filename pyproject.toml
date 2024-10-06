@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "simpleapigateway"
+version = "0.1.0"
+description = "Simple API Gateway"
+authors = ["Jonathan Gonzalez <jonathan@local>"]
+license = "MPLv2"
+readme = "README.md"
+
+# -- manually added - begin of block ----------------------
+#
+package-mode = false
+packages = [{ include = "sapigw", from = "src" }]
+
+[tool.semantic_release]
+branch = "main"
+version_variables = ["src/sapigw/__init__.py:__version__"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+#
+# -- manually added - end of block ------------------------
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+redis = "^5.1.1"
+python-dotenv = "^1.0.1"
+python-jose = "^3.3.0"
+flask = "^3.0.3"
+flask-caching = "^2.3.0"
+flask-limiter = "^3.8.0"
+prometheus-flask-exporter = "^0.23.1"
+types-requests = "^2.32.0.20240914"
+types-redis = "^4.6.0.20241004"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+mypy = "^1.11.2"
+pre-commit = "^4.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

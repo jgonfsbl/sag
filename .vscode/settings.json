@@ -1,0 +1,10 @@
+{
+    "workbench.colorCustomizations": {
+        "tree.indentGuidesStroke": "#29b42984",
+        "editorRuler.foreground": "#78787854",
+        "editor.mouseWheelZoom": true,
+        "activityBar.background": "#103502",
+        "titleBar.activeBackground": "#164B02",
+        "titleBar.activeForeground": "#F2FEED"
+    }
+}
